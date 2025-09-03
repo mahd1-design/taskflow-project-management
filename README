@@ -1,0 +1,314 @@
+# Task Manager
+
+A full-stack task management application built with React (Frontend) and Node.js/Express (Backend), featuring user authentication, task CRUD operations, and containerized deployment.
+
+
+## 🚀 Features
+
+- **User Authentication** - JWT-based login/register system
+- **Task Management** - Create, read, update, and delete tasks
+- **Responsive Design** - Built with React and Tailwind CSS
+- **RESTful API** - Express.js backend with MongoDB
+- **Containerized** - Docker support for easy deployment
+- **Testing** - Jest test suites included
+- **Production Ready** - Optimized builds and error handling
+
+## 📁 Project Structure
+
+```
+task-manager/
+├── task-tracker/                 # Frontend (React + Vite)
+│   ├── src/
+│   ├── public/
+│   ├── Dockerfile
+│   ├── package.json
+│   └── vite.config.js
+├── task-tracker-BE/             # Backend (Node.js + Express)
+│   ├── src/
+│   ├── tests/
+│   ├── Dockerfile
+│   ├── server.js
+│   └── package.json
+├── docker-compose.yml
+└── README.md
+```
+
+## 🛠 Tech Stack
+
+### Frontend
+- **React 19** - UI library
+- **Vite** - Build tool and dev server
+- **Tailwind CSS** - Utility-first CSS framework
+- **Lucide React** - Icon library
+- **ESLint** - Code linting
+
+### Backend
+- **Node.js** - Runtime environment
+- **Express.js** - Web framework
+- **MongoDB** - Database (MongoDB Atlas)
+- **JWT** - Authentication tokens
+- **Jest** - Testing framework
+
+### DevOps
+- **Docker** - Containerization
+- **Docker Compose** - Multi-container orchestration
+
+## 📋 Prerequisites
+
+- Node.js (v18 or higher)
+- Docker and Docker Compose
+- MongoDB Atlas account (or local MongoDB instance)
+
+## 🚀 Quick Start
+
+### Option 1: Docker Compose (Recommended)
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd project-task-manager
+   ```
+
+2. **Environment Setup**
+   
+   Update the MongoDB URI and JWT secret in `docker-compose.yml`:
+   ```yaml
+   MONGODB_URI: your-mongodb-connection-string
+   JWT_SECRET: your-secure-jwt-secret
+   ```
+
+3. **Run with Docker Compose**
+   ```bash
+   docker-compose up --build
+   ```
+
+4. **Access the application**
+   - Frontend: http://localhost:3000
+   - Backend API: http://localhost:5000
+
+### Option 2: Local Development
+
+#### Backend Setup
+
+1. **Navigate to backend directory**
+   ```bash
+   cd task-tracker-BE
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Create environment file**
+   ```bash
+   # Create .env file with:
+   NODE_ENV=development
+   PORT=5000
+   MONGODB_URI=your-mongodb-connection-string
+   JWT_SECRET=your-secure-jwt-secret
+   FRONTEND_URL=http://localhost:3000
+   ```
+
+4. **Start the backend server**
+   ```bash
+   npm run dev
+   ```
+
+#### Frontend Setup
+
+1. **Navigate to frontend directory**
+   ```bash
+   cd task-tracker
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Create environment file**
+   ```bash
+   # Create .env file with:
+   VITE_API_URL=http://localhost:5000/api
+   ```
+
+4. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+## 🧪 Testing
+
+### Backend Tests
+```bash
+cd task-tracker-BE
+npm test
+```
+
+### Frontend Tests
+```bash
+cd task-tracker
+npm test
+```
+
+### Run All Tests
+```bash
+# From project root
+npm run test:all
+```
+
+## 🐳 Docker Commands
+
+### Build and Run
+```bash
+# Build and start all services
+docker-compose up --build
+
+# Run in detached mode
+docker-compose up -d
+
+# Stop services
+docker-compose down
+
+# View logs
+docker-compose logs -f
+```
+
+### Individual Container Commands
+```bash
+# Build backend only
+docker build -t task-tracker-backend ./task-tracker-BE
+
+# Build frontend only
+docker build -t task-tracker-frontend ./task-tracker
+
+# Run backend container
+docker run -p 5000:5000 task-tracker-backend
+
+# Run frontend container
+docker run -p 3000:80 task-tracker-frontend
+```
+
+## 🔧 Available Scripts
+
+### Frontend (task-tracker/)
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run preview      # Preview production build
+npm run lint         # Run ESLint
+```
+
+### Backend (task-tracker-BE/)
+```bash
+npm start            # Start production server
+npm run dev          # Start development server with nodemon
+npm test             # Run Jest tests
+npm run test:watch   # Run tests in watch mode
+```
+
+## 🌐 API Endpoints
+
+### Authentication
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/login` - User login
+- `GET /api/auth/me` - Get current user
+
+### Tasks
+- `GET /api/tasks` - Get all user tasks
+- `POST /api/tasks` - Create new task
+- `GET /api/tasks/:id` - Get specific task
+- `PUT /api/tasks/:id` - Update task
+- `DELETE /api/tasks/:id` - Delete task
+
+## 🔐 Environment Variables
+
+### Backend (.env)
+```env
+NODE_ENV=production
+PORT=5000
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/taskmanager
+JWT_SECRET=your-super-secure-jwt-secret-key
+FRONTEND_URL=http://localhost:3000
+```
+
+### Frontend (.env)
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+## 🚦 Production Deployment
+
+### Building for Production
+```bash
+# Build frontend
+cd task-tracker
+npm run build
+
+# The backend runs in production mode when NODE_ENV=production
+```
+
+### Docker Production
+```bash
+# Use production compose file
+docker-compose -f docker-compose.prod.yml up --build -d
+```
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+1. **CORS Errors**
+   - Ensure FRONTEND_URL is correctly set in backend environment
+   - Check that the frontend is making requests to the correct API URL
+
+2. **Database Connection Issues**
+   - Verify MongoDB URI is correct and accessible
+   - Check network connectivity to MongoDB Atlas
+
+3. **Port Conflicts**
+   - Make sure ports 3000 and 5000 are available
+   - Update port mappings in docker-compose.yml if needed
+
+4. **Docker Build Failures**
+   - Clear Docker cache: `docker system prune -a`
+   - Ensure Dockerfiles are in correct locations
+
+### Health Checks
+```bash
+# Check backend health
+curl http://localhost:5000/api/health
+
+# Check frontend
+curl http://localhost:3000
+```
+
+## 📝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/new-feature`
+3. Commit changes: `git commit -am 'Add new feature'`
+4. Push to branch: `git push origin feature/new-feature`
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🆘 Support
+
+For support, email support@taskmanager.com or create an issue in the repository.
+
+## 🗺 Roadmap
+
+- [ ] Task categories and labels
+- [ ] Due date notifications
+- [ ] Team collaboration features
+- [ ] Mobile app development
+- [ ] Advanced filtering and search
+- [ ] Task analytics and reporting
+
+---
+
+**Happy Task Managing! 🎯**
